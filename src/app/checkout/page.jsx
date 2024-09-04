@@ -1,7 +1,7 @@
 "use client"
 import { useCart } from '@/context/CartContext';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import React, { useContext, useEffect, useState } from 'react';
-import { PayPalButton } from "react-paypal-button-v2";
 // AUUMinS7Bgotcs7qemDMqchLepIQJjtI-HAW0_ppf3EWceYdEATO9-cydIaDGvZh5e5eGARDawg1P329
 
 function Page() {
@@ -129,20 +129,24 @@ function Page() {
                                 {
                                     isReadyToPayment ? (
                                         <div>
-                                            {scriptLoaded ? (
-                                                <PayPalButton
-                                                    amount={totalPrice}
-                                                    onSuccess={(details, data) => {
-                                                        console.log(details.status, data)
-                                                        if (details.status == "COMPLETED") {
-                                                            sendOrderToAdmin();
-                                                        }
-                                                    }
-                                                    }
+                                            <PayPalScriptProvider options={{ "client-id": "your-client-id" }}>
+                                                <PayPalButtons
+                                                    createOrder={(data, actions) => {
+                                                        return actions.order.create({
+                                                            purchase_units: [{
+                                                                amount: {
+                                                                    value: "0.01"
+                                                                }
+                                                            }]
+                                                        });
+                                                    }}
+                                                    onApprove={(data, actions) => {
+                                                        return actions.order.capture().then((details) => {
+                                                            alert("Transaction completed by " + details.payer.name.given_name);
+                                                        });
+                                                    }}
                                                 />
-                                            ) : (
-                                                <span>Loading...</span>
-                                            )}
+                                            </PayPalScriptProvider>
                                         </div>
                                     ) : (
                                         <button onClick={handleReadyToPayment} className='p-3 bg-secondary text-lg font-medium text-white w-full rounded-md'>Go To Payment</button>

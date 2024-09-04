@@ -1,8 +1,7 @@
 import React from 'react';
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
-import { IoIosStarHalf } from "react-icons/io";
 
 function ReviewCard() {
     return (

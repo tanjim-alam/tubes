@@ -16,7 +16,8 @@ const ReviewsSection = dynamic(() => import('../components/ReviewsSection'));
 import facebookCommentsData from '../../constant/facebook/facebookCommentsData.json';
 
 // Use named imports for icons (assuming you're using named exports here)
-import { IoSearch, IoMdWatch } from 'react-icons/io5';
+import { IoSearch } from 'react-icons/io5'; // Available in io5
+import { IoMdWatch } from 'react-icons/io'; // Available in io
 import { BsGraphDownArrow } from 'react-icons/bs';
 import { MdSupportAgent, MdOutlinePayment, MdLockOutline, MdOutlineWarning, MdLightMode } from 'react-icons/md';
 
